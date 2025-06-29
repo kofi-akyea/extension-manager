@@ -5,7 +5,7 @@ body.dark {
   color: white;
   transition: 500ms;
 }
-body {
+body.light {
   background-color: #eef8fa;
   color: black;
   transition: 500ms;
