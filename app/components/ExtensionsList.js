@@ -4,8 +4,8 @@ import { useState } from "react";
 import ExtensionComponent from "./ExtensionComponent";
 import data from "@/app/data.json";
 
-const ExtensionsList = () => {
-  const [extension, setExtensions] = useState(data);
+const ExtensionsList = ({ filterStatus }) => {
+  const [extensions, setExtensions] = useState(data);
 
   const handleToggle = (name) => {
     setExtensions((prevExtensions) =>
@@ -17,9 +17,20 @@ const ExtensionsList = () => {
     );
   };
 
+  const filteredExtensions = extensions.filter((ext) => {
+    if (filterStatus === "All") {
+      return true;
+    } else if (filterStatus === "Active") {
+      return ext.isActive === true;
+    } else if (filterStatus === "Inactive") {
+      return ext.isActive === false;
+    }
+    return false;
+  });
+
   return (
     <div className="mt-10">
-      {data.map((item) => (
+      {filteredExtensions.map((item) => (
         <ExtensionComponent
           key={item.name}
           logo={item.logo}
